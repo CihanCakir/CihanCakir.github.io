@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame Particle Player Component - Magic</title>
+    <meta name="description" content="Magic example for Particle Player component."></meta>
+    <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v5.0.1/dist/aframe-extras.min.js" ></script>
+
+    <script src="../vortex/aframe-particleplayer-component.js""></script>
+  </head>
+  <body>
+    <a-scene background="color: #222">
+      <a-assets>
+        <a-asset-item id="particlesOrbJson" src="particles-orb.json"></a-asset-item>
+        <a-asset-item id="particlesEnergyJson" src="particles-energy.json"></a-asset-item>
+        <a-asset-item id="particlesDustJson" src="particles-dust.json"></a-asset-item>
+        <a-asset-item id="coinEx" response-type="arrayBuffer" src="scene.gltf"></a-asset-item>
+        <img src="dust.png" id="dustTex">
+        <img src="floor.jpg" id="floorTex">
+        <img src="star.png" id="starTex">
+        <img src="energy.png" id="energyTex">
+        <img src="floor_roughness.jpg" id="floorRoughTex">
+      </a-assets>
+
+      <a-entity position="0 0 -2.5" rotation="0 -90 0">
+          <a-entity particleplayer="delay: 500; src: #particlesOrbJson; img: #coinEx; dur: 4000; count: 100%; scale: 2.5; pscale: 9; interpolate: false; shader: standard; poolSize: 1; loop: true"></a-entity>
+          <a-entity gltf-model="#coinEx" scale="0.5 0.5 0.5" position="0 1 0" animation-mixer="clip:CilindroAction;"></a-entity>
+
+        <a-entity particleplayer="delay: 500; src: #particlesOrbJson; img: #starTex; dur: 4000; count: 100%; scale: 2.5; pscale: 9; interpolate: false; shader: standard; poolSize: 1; loop: true"></a-entity>
+
+        <a-entity particleplayer="delay: 500; src: #particlesEnergyJson; img: #energyTex; dur: 4000; count: 100%; scale: 2.5; pscale: 2; interpolate: false; shader: standard; poolSize: 1; loop: true;"></a-entity>
+
+        <a-entity particleplayer="delay: 500; src: #particlesDustJson; img: #dustTex; dur: 4000; count: 100%; scale: 2.5; pscale: 1; interpolate: false; shader: standard; poolSize: 1; loop: true; color: #FCF409"></a-entity>
+      </a-entity>
+
+      <!-- lights -->
+      <a-light position="4 5 -10" type="point" color="#FCF409"></a-light>
+      <a-light position="-6 14 20" type="point" color="#FCF409"></a-light>
+
+      <!-- floor and walls -->
+      </a-scene>
+
+    <!-- GitHub Corner. -->
+    
+  </body>
+</html>

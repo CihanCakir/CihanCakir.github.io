@@ -1,0 +1,12 @@
+<script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
+<script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.6.0/aframe/build/aframe-ar.js"></script>
+<body>
+ <a-scene embedded arjs='debugUIEnabled: false; sourceType: webcam;'>
+    <a-marker preset="custom" type="pattern" url="/img/patterns/pattern-inooster.patt">
+      <a-entity  gltf-model="url('/Model/scene.gltf')">
+        <a-animation attiribute="material.opacity" dur="500" to="1" direction="alternate" repeat="indefinite"></a-animation>
+    </a-entity>
+    </a-marker>
+    <a-entity camera></a-entity>
+</a-scene>
+</body>

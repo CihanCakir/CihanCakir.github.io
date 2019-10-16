@@ -1,0 +1,62 @@
+
+<!doctype HTML>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    </head>
+    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+    <script src="vortex/aframe-particleplayer-component.js""></script>
+<script>
+AFRAME.registerComponent('trigger', {
+  init: function() {
+    document.addEventListener('keydown', evt => {
+      if (evt.keyCode === 32) { this.trigger(); }
+    });
+    document.addEventListener('click', () => {
+      this.trigger();
+    });
+  },
+
+  trigger: function() {
+    this.el.emit('particleplayerstart', {
+      position: new THREE.Vector3(
+        (Math.random() - 0.5) * 7,
+        Math.random() * 2,
+        -5 - Math.random() * 2
+      ),
+      rotation: new THREE.Euler(Math.random() * 1 - .5, 0, 0)
+    });
+  }
+});
+</script>
+
+    <!-- import events.js script -->
+    
+    <body>
+        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
+        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+
+            <a-assets>
+                    <a-asset-item id="particlesJson" src="fireworks/particles-fireworks.json"></a-asset-item>
+
+                <img src="vortex/sprite.png" id="particleTex">
+              </a-assets>
+
+        <a-marker markerhandler emitevents="true" cursor="rayOrigin: mouse" id="animated-marker"  preset="custom" type="pattern" url="../img/patterns/pattern-inooster.patt" value='6'>
+            <a-entity position="0 1 -5"
+            trigger
+            particleplayer="on: particleplayerstart; src: #particlesJson; img: #particleTex; dur: 4000; count: 50%; scale: 0.6; pscale: 2; interpolate: true; shader: standard; poolSize: 20"></a-entity>
+    
+          <a-light position="6 14 -2" type="point" color="#f29"></a-light>
+          <a-light position="-6 -14 12" color="#f92" type="point"></a-light>
+         
+         
+        </a-marker>
+
+        <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
+        <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>
